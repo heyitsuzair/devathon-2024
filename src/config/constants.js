@@ -1,0 +1,31 @@
+export default {
+  ERROR: {
+    500: "Internal Server Error",
+    BAD_CREDENTIALS: "Invalid Credentials!",
+    400: "Something Went Wrong",
+    USER_EXISTS: "User With This Email Already Exists",
+    FILE_NOT_SAVED: "Error Saving File",
+    401: "Unauthorized",
+  },
+  SUCCESS: {
+    LOGIN: "Welcome!",
+    LOGOUT: "Logged Out!",
+    MESSAGE_SENT: "Message Sent!",
+    GENERIC: "Success!",
+    ACCOUNT_CREATED: "Account Created!",
+    LOGGED_OUT: "Logged Out!",
+    FILE_SAVED: "File Saved",
+    LINK_COPIED: "Link Copied!",
+  },
+  TABLES: {
+    USERS: "users",
+    CONTACT_FORM: "contact_form",
+  },
+  COOKIES: {
+    AUTH: "<company>-auth",
+  },
+  ROLES: {
+    // STUDENT: "student",
+    // INSTRUCTOR: "instructor",
+  },
+};
