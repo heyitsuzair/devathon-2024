@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Hero from "./Hero";
 import { createForm } from "@/actions";
-import { FancyBox, FancyImage, Flex, Grid } from "@/components";
+import { FancyBox, FancyImage, Flex, Grid, TextMd } from "@/components";
 
 export default function Home() {
   useEffect(() => {
@@ -40,7 +40,9 @@ export default function Home() {
           </div>
         </Grid>
       </FancyBox>
-      <Flex></Flex>
+      <Flex>
+        <TextMd />
+      </Flex>
     </>
   );
 }
