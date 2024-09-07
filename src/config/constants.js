@@ -17,12 +17,15 @@ export default {
     LOGGED_OUT: "Logged Out!",
     FILE_SAVED: "File Saved",
     LINK_COPIED: "Link Copied!",
+    TEST_SAVED: "Test Saved!",
   },
   TABLES: {
     USERS: "users",
     CONTACT_FORM: "contact_form",
     INSTRUCTORS: "instructors",
     STUDENTS: "students",
+    TESTS: "tests",
+    QUESTIONS: "questions",
   },
   COOKIES: {
     AUTH: "<company>-auth",

@@ -11,6 +11,9 @@ export default function (handler) {
     const secretKey = new TextEncoder().encode(process.env.JWT_SECRET);
     const decodedToken = await jwtVerify(token?.value, secretKey);
 
+    if (decodedToken.payload.role !== constants.ROLES.INSTRUCTOR)
+      return redirect(routes.home);
+
     // Proceed with the handler if the user is logged in
     return handler(data, decodedToken?.payload);
   };
