@@ -1,7 +1,8 @@
 "use server"
+import { constants } from "@/config"
 import { supabase } from "@/lib"
 
-export const addTest = async({test_name, questions, options, corectOption, image, category})=>{
+export const addQuestions = async({test_name, questions, options, corectOption, image, category})=>{
     try{
         const {error} = supabase
             .from("questions")
@@ -16,19 +17,25 @@ export const addTest = async({test_name, questions, options, corectOption, image
     
         if(error){
             console.error(error.message)
+            return {
+                success: false,
+                data: constants.ERROR[400]
+            }
         }
         return {
-            success: true
+            success: true,
+            data: constants.SUCCESS.MESSAGE_SENT
         }
     }catch(e){
         console.error(e)
         return {
             success: false,
+            data: constants.ERROR[500],
         }
     }
 }
 
-export const getTest = async () => {
+export const getQuestions = async () => {
     try {
         const { data, error } = await supabase
             .from("questions")
