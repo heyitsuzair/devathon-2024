@@ -18,31 +18,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <FancyBox>
-        <Grid>
-          <div className="col-span-3">
-            <FancyImage image={"https://placehold.co/210x216"} />
-          </div>
-          <div className="col-span-3">
-            <FancyImage image={"https://placehold.co/210x216"} />
-          </div>
-          <div className="col-span-3">
-            <FancyImage image={"https://placehold.co/210x216"} />
-          </div>
-          <div className="col-span-3">
-            <FancyImage image={"https://placehold.co/210x216"} />
-          </div>
-          <div className="col-span-3">
-            <FancyImage image={"https://placehold.co/210x216"} />
-          </div>
-          <div className="col-span-3">
-            <FancyImage image={"https://placehold.co/210x216"} />
-          </div>
-        </Grid>
-      </FancyBox>
-      <Flex>
-        <TextMd />
-      </Flex>
     </>
   );
 }

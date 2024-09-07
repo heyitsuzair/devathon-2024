@@ -78,24 +78,6 @@ const Footer = () => {
           </div>
         </Grid>
       </div>
-      <div className="bg-theme-secondary p-5 text-center">
-        <Flex gap="gap-2" flexDirection="flex-col md:flex-row">
-          <TextXl
-            text={`Copyright © ${getCurrentYear()} Fellow Coders. All rights reserved. Web Design By`}
-            color="text-white"
-          />
-          <a
-            href="https://api.whatsapp.com/send?phone=923104864150&text=Hey!%20I%20Need%20More%20Information%20About%20Your%20Services"
-            target="_blank"
-          >
-            <TextLg
-              text={`FELLOW CODERS`}
-              color="text-white font-bold"
-              classes="underline"
-            />
-          </a>
-        </Flex>
-      </div>
     </>
   );
 };

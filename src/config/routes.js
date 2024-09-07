@@ -12,6 +12,10 @@ export default {
     admin:{
       index:ADMIN_PATH,
       signin:ADMIN_PATH + '/signin',
-    }
+    },
+    instructor: {
+      index: INSTRUCTOR_PATH,
+      addtext: INSTRUCTOR_PATH + "/test/add",
+    },
   }
 };
