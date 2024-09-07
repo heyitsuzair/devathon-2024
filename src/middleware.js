@@ -18,6 +18,13 @@ export async function middleware(req) {
   ) {
     return NextResponse.redirect(new URL(routes.home, req.url));
   }
+  if (
+    path.includes("dashboard/student") &&
+    (!(await isLoggedIn()) ||
+      (await isLoggedIn(true)).role !== constants.ROLES.STUDENT)
+  ) {
+    return NextResponse.redirect(new URL(routes.home, req.url));
+  }
 
   return NextResponse.next();
 }
