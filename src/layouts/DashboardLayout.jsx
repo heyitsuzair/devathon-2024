@@ -4,11 +4,11 @@ import React from "react";
 
 const DashboardLayout = ({ children }) => {
   return (
-    <Grid>
+    <Grid alignItems="items-start">
       <div className="col-span-3">
         <Sidebar />
       </div>
-      <div className="col-span-9">{children}</div>
+      <div className="col-span-9 p-5">{children}</div>
     </Grid>
   );
 };
