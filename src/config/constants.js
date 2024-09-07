@@ -22,6 +22,7 @@ export default {
     USERS: "users",
     CONTACT_FORM: "contact_form",
     INSTRUCTORS: "instructors",
+    STUDENTS: "students",
   },
   COOKIES: {
     AUTH: "<company>-auth",
