@@ -8,13 +8,15 @@ export default {
   signIn: AUTH_PATH + "login",
   // app
   home: "/",
-  dashboard: {
-    index: INSTRUCTOR_PATH,
-    addTest: INSTRUCTOR_PATH + "/addtest",
-  }
   // courses: {
   //   index: COURSES_BASE_PATH,
   //   indexWithCategory: (id) => `${COURSES_BASE_PATH}?category_id=${id}`,
   //   read: (id) => COURSES_BASE_PATH + `/${id}`,
   // },
+  dashboard: {
+    instructor: {
+      index: INSTRUCTOR_PATH,
+      addtest: INSTRUCTOR_PATH + "/addtest",
+    },
+  },
 };

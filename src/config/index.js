@@ -6,3 +6,4 @@ export { default as toastSettings } from "./toastSettings";
 export { default as jobStatuses } from "./jobStatuses";
 export { default as socialHandles } from "./socialHandles";
 export { default as publicFieldsForDB } from "./publicFieldsForDB";
+export { default as questionsCategories } from "./questionsCategories";

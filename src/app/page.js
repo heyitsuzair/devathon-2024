@@ -8,7 +8,7 @@ import { FancyBox, FancyImage, Flex, Grid, TextMd } from "@/components";
 export default function Home() {
   return (
     <>
-      Hello
+      <Hero />
     </>
   );
 }
