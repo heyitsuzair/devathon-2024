@@ -9,7 +9,7 @@ const page = () => {
   return (
     <div>
         <AddTest/>
-        <ButtonIconned classes='rounded-lg' text={"Add test"} onClick={()=>setQuestitonPortal(true)}/>
+        <ButtonIconned classes='rounded-lg' text={"Add Questions"} onClick={()=>setQuestitonPortal(true)}/>
         {showQuestionPortsl ? <AddQuestions/>: ""}
     </div>
   )

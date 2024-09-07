@@ -9,10 +9,12 @@ const AddTest = () => {
     const [question, setquestion] = useState();
     const [price, setprice] = useState();
     const [testType, setTestType] = useState();
+    const [AgeLevel, setAgeLevel] = useState();
     const handleInputChange = (e)=>{
         setTestName(e.target.value)
         setquestion(e.target.value)
         setprice(e.target.value)
+        setAgeLevel(e.target.value)
     }
     const handleTypeChange = (e) => {
         setTestType(e.target.value)
@@ -31,6 +33,7 @@ const AddTest = () => {
         <Input placeholder={"Enter your test name"} onChange={handleInputChange} label={"Test Name"}/>
         <Input placeholder={"Enter number of question"} onChange={handleInputChange} label={"No of Question"}/>
         <Input placeholder={"price of the test"} onChange={handleInputChange} label={"Price In Rs"}/>
+        <Input placeholder={"Age Level"} onChange={handleInputChange} label={"Age Level"}/>
     </div>
   )
 }
