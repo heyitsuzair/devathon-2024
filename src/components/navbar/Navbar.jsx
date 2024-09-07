@@ -3,7 +3,7 @@
 import { constants, images, menu, routes } from "@/config";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
-import { ButtonPlain } from "../buttons";
+import { ButtonIconned, ButtonPlain } from "../buttons";
 import { Modal } from "../modal";
 import { TabsUnderlined } from "../tabs";
 import StudentLogin from "./StudentLogin";
@@ -15,10 +15,12 @@ import Logo from "../logo";
 import { Text3Xl } from "../text";
 import Flex from "../flex/Flex";
 import InstructorSignup from "./InstructorSignup";
-import { AuthContext, CategoriesContext } from "@/context";
-import { DataTransformer } from "@/utils";
+import { AuthContext } from "@/context";
 import { useRouter } from "next/navigation";
 import MFAModal from "./MFAModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { InputPlain } from "../inputs";
 
 const Navbar = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -26,6 +28,7 @@ const Navbar = () => {
   const [loginTabActive, setLoginTabActive] = useState(0);
   const [signupTabActive, setSignupTabActive] = useState(0);
   const [isMFAModalOpen, setIsMFAModalOpen] = useState(false);
+  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
 
   const loginModalTabs = ["Student", "Instructor"];
   const signupModalTabs = ["Student", "Instructor"];
@@ -69,12 +72,11 @@ const Navbar = () => {
 
   const handleClickDashboard = () => {
     const role = getLoggedInRole();
-
     if (role === constants.ROLES.STUDENT) {
       router.push(routes.dashboard.student.index);
     }
     if (role === constants.ROLES.INSTRUCTOR) {
-      router.push(routes.dashboard.instructor.courses.index);
+      router.push(routes.dashboard.instructor.test.create);
     }
   };
 
@@ -103,68 +105,105 @@ const Navbar = () => {
       </Modal>
       <header className="sticky top-0 shadow lg:px-4 bg-white z-[9] h-auto">
         <div className="grid grid-cols-12 justify-between items-center p-8">
-          <div className="col-span-10 lg:col-span-4">
-            <Link href={routes.home}>
-              <Flex gap="gap-0" justify="justify-start">
-                <Logo classes="rounded-full size-32" />
-              </Flex>
-            </Link>
-          </div>
-          <div className="col-span-2 lg:col-span-4">
-            <DesktopMenu menu={menu} />
-            <MobileMenu
-              setIsLoginModalOpen={setIsLoginModalOpen}
-              setIsSignupModalOpen={setIsSignupModalOpen}
-              menu={menu}
-            />
-          </div>
-          <div className="col-span-0 hidden lg:flex lg:col-span-4 gap-2 items-center justify-end">
-            {isLoggedIn() ? (
-              <>
-                <ButtonPlain
-                  text="Dashboard"
-                  hover="transition-all hover:bg-theme-700"
-                  isRounded
-                  width="w-36"
-                  onClick={handleClickDashboard}
+          {isSearchBarOpen ? (
+            <>
+              <div className="col-span-11">
+                <InputPlain
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      // Handle the enter key press here
+                      alert("Enter key pressed");
+                    }
+                  }}
+                  placeholder={"Search...."}
                 />
-                <ButtonPlain
-                  text="Logout"
-                  color="bg-transparent"
-                  isRounded
-                  width="w-24"
-                  classes="border-2"
-                  colorText="text-black"
-                  onClick={handleLogout}
+              </div>
+              <div className="col-span-1 ml-4">
+                <ButtonIconned
+                  icon={faXmark}
+                  text="Close"
+                  color="bg-theme-500"
+                  onClick={() => setIsSearchBarOpen(false)}
+                  iconColor="text-white"
+                  borderRadius="rounded-lg"
                 />
-              </>
-            ) : (
-              <>
-                {isLoggedIn() === null ? (
-                  <div className="animate-pulse bg-gray-200 rounded-full h-10 w-48"></div>
-                ) : (
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="col-span-10 lg:col-span-4">
+                <Link href={routes.home}>
+                  <Flex gap="gap-0" justify="justify-start">
+                    <Logo classes="rounded-full size-32" />
+                  </Flex>
+                </Link>
+              </div>
+              <div className="col-span-2 lg:col-span-4">
+                <DesktopMenu menu={menu} />
+                <MobileMenu
+                  setIsLoginModalOpen={setIsLoginModalOpen}
+                  setIsSignupModalOpen={setIsSignupModalOpen}
+                  menu={menu}
+                />
+              </div>
+              <div className="col-span-0 hidden lg:flex lg:col-span-4 gap-2 items-center justify-end">
+                <div
+                  className="cursor-pointer"
+                  onClick={() => setIsSearchBarOpen(true)}
+                >
+                  <FontAwesomeIcon
+                    icon={faSearch}
+                    className="text-black text-xl mx-4"
+                  />
+                </div>
+                {isLoggedIn() ? (
                   <>
                     <ButtonPlain
-                      text="Login"
+                      text="Dashboard"
                       hover="transition-all hover:bg-theme-700"
                       isRounded
-                      width="w-24"
-                      onClick={() => setIsLoginModalOpen(true)}
+                      width="w-36"
+                      onClick={handleClickDashboard}
                     />
                     <ButtonPlain
-                      text="Register"
+                      text="Logout"
                       color="bg-transparent"
                       isRounded
                       width="w-24"
                       classes="border-2"
                       colorText="text-black"
-                      onClick={() => setIsSignupModalOpen(true)}
+                      onClick={handleLogout}
                     />
                   </>
+                ) : (
+                  <>
+                    {isLoggedIn() === null ? (
+                      <div className="animate-pulse bg-gray-200 rounded-full h-10 w-48"></div>
+                    ) : (
+                      <>
+                        <ButtonPlain
+                          text="Login"
+                          hover="transition-all hover:bg-theme-700"
+                          isRounded
+                          width="w-24"
+                          onClick={() => setIsLoginModalOpen(true)}
+                        />
+                        <ButtonPlain
+                          text="Register"
+                          color="bg-transparent"
+                          isRounded
+                          width="w-24"
+                          classes="border-2"
+                          colorText="text-black"
+                          onClick={() => setIsSignupModalOpen(true)}
+                        />
+                      </>
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          )}
         </div>
       </header>
     </>

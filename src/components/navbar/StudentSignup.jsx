@@ -2,11 +2,10 @@ import React from "react";
 import { ButtonPlain } from "../buttons";
 import { TextXl } from "../text";
 import { generateGridForm } from "@/utils";
-import { jobStatuses } from "@/config";
 import Flex from "../flex/Flex";
 import { useFormik } from "formik";
 import { StudentSignupSchema } from "@/validationSchema";
-import { registerStudent } from "@/actions";
+import { createStudent } from "@/actions";
 import { useToast } from "@/hooks";
 
 const initialValues = {
@@ -15,10 +14,6 @@ const initialValues = {
   email_address: "",
   password: "",
   phone_number: "",
-  father_name: "",
-  job_status: "",
-  uni_college_name: "",
-  hospital_name: "",
 };
 
 const StudentSignup = ({
@@ -28,7 +23,7 @@ const StudentSignup = ({
   const { showErrorMessage, showSuccessMessage } = useToast();
 
   const onSubmit = async (values, { resetForm }) => {
-    const { data, success } = await registerStudent(values);
+    const { data, success } = await createStudent(values);
 
     if (!success) return showErrorMessage(data);
     else {
@@ -61,10 +56,7 @@ const StudentSignup = ({
       placeholder: "Last Name",
       isRequired: true,
     },
-    {
-      placeholder: "Father Name",
-      isRequired: true,
-    },
+
     {
       placeholder: "Email Address",
       isRequired: true,
@@ -77,24 +69,6 @@ const StudentSignup = ({
     {
       placeholder: "Phone Number",
       isRequired: true,
-    },
-
-    {
-      placeholder: "Job Status",
-      options: jobStatuses,
-      isRequired: true,
-    },
-    {
-      placeholder: "University/College Name",
-      name: "uni_college_name",
-      isRequired: true,
-      invisible: values.job_status !== "student",
-    },
-    {
-      placeholder: "Hospital Name",
-      name: "hospital_name",
-      isRequired: true,
-      invisible: values.job_status !== "employee",
     },
   ];
 

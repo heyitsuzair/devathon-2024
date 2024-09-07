@@ -29,11 +29,8 @@ export function AuthState({ children }) {
   const isLoggedIn = () => {
     return user;
   };
-  const getLoggedInRole = async () => {
-    const cookie = await isLoggedInUtil(true);
-    if (cookie) {
-      return cookie.role;
-    }
+  const getLoggedInRole = () => {
+    return user.role;
   };
   const logoutUser = async () => {
     await logout();

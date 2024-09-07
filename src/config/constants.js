@@ -6,6 +6,7 @@ export default {
     USER_EXISTS: "User With This Email Already Exists",
     FILE_NOT_SAVED: "Error Saving File",
     401: "Unauthorized",
+    ACCOUNT_UNDER_APPROVAL: "Account Under Approval",
   },
   SUCCESS: {
     LOGIN: "Welcome!",
@@ -20,12 +21,14 @@ export default {
   TABLES: {
     USERS: "users",
     CONTACT_FORM: "contact_form",
+    INSTRUCTORS: "instructors",
+    STUDENTS: "students",
   },
   COOKIES: {
     AUTH: "<company>-auth",
   },
   ROLES: {
-    // STUDENT: "student",
-    // INSTRUCTOR: "instructor",
+    STUDENT: "student",
+    INSTRUCTOR: "instructor",
   },
 };

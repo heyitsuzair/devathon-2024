@@ -7,7 +7,7 @@ const TestCategories = ({ activeTab, setActiveTab }) => {
     <Grid>
       {questionsCategories.map((category, i) => (
         <div
-          className={`col-span-1 rounded-xl border border-black text-center cursor-pointer ${
+          className={`col-span-6 md:col-span-3 lg:col-span-1 rounded-xl border border-black text-center cursor-pointer ${
             activeTab === i
               ? "bg-theme-500 text-white border-theme-500"
               : "hover:bg-theme-500 hover:text-white hover:border-theme-500"
@@ -23,11 +23,7 @@ const TestCategories = ({ activeTab, setActiveTab }) => {
 };
 const Hero = () => {
   const [activeTab, setActiveTab] = useState(0);
-  return (
-    <div className="m-10">
-      <TestCategories activeTab={activeTab} setActiveTab={setActiveTab} />
-    </div>
-  );
+  return <TestCategories activeTab={activeTab} setActiveTab={setActiveTab} />;
 };
 
 export default Hero;

@@ -5,7 +5,7 @@ import { generateGridForm, generateUUID } from "@/utils";
 import Flex from "../flex/Flex";
 import { useFormik } from "formik";
 import { InstructorSignupSchema } from "@/validationSchema";
-import { registerInstructor } from "@/actions";
+import { createInstructor, registerInstructor } from "@/actions";
 import { useToast } from "@/hooks";
 
 const InstructorSignup = ({
@@ -23,7 +23,7 @@ const InstructorSignup = ({
   const { showErrorMessage, showSuccessMessage } = useToast();
 
   const onSubmit = async (values, { resetForm }) => {
-    const { data, success } = await registerInstructor(values);
+    const { data, success } = await createInstructor(values);
 
     if (!success) return showErrorMessage(data);
     else {

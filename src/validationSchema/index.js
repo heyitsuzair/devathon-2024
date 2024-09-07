@@ -1,1 +1,1 @@
-export { default as ContactFormSchema } from "./ContactFormSchema";
+export { default as InstructorSignupSchema } from "./InstructorSignupSchema";
