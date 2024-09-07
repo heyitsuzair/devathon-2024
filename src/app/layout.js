@@ -11,6 +11,8 @@ import { AuthState } from "@/context/AuthContext";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import "@fancyapps/ui/dist/carousel/carousel.css";
 import "@fancyapps/ui/dist/carousel/carousel.thumbs.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
 
 const inter = Urbanist({ subsets: ["latin"] });
 
@@ -29,7 +31,7 @@ export default function RootLayout({ children }) {
               toastOptions={toastSettings}
               reverseOrder={false}
             />
-              {children}
+            {children}
           </BasicLayout>
         </AuthState>
       </body>

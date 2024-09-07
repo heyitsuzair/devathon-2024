@@ -26,6 +26,7 @@ const TestForm = ({
     test_name: "",
     category: "",
     image: "",
+    price: "",
     questions: [
       {
         id: generateUUID(),
