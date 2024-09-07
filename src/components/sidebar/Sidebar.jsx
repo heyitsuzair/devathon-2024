@@ -1,14 +1,16 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { faDoorOpen, faGear, faHome, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faDoorOpen, faGear, faHome, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { routes } from "@/config";
 
 const Sidebar = () => {
   const navItems = [
-    { label: "Dashboard", href: "/admin/dashboard", icon: faHome },
-    { label: "Users", href: "/admin/users", icon: faUser },
-    { label: "Settings", href: "/admin/settings", icon: faGear },
+    { label: "Dashboard", href: routes.dashboard.admin.index, icon: faHome },
+    { label: "Test Approval", href: routes.dashboard.admin.testApproval, icon: faCheck },
+    { label: "Users", href: routes.dashboard.admin.index, icon: faUser },
+    { label: "Settings", href:routes.dashboard.admin.index, icon: faGear },
   ];
 
   return (
@@ -28,7 +30,6 @@ const Sidebar = () => {
         ))}
       </nav>
 
-      {/* Sidebar Footer */}
       <div className="flex items-center justify-center py-3 px-4 bg-gray-900 hover:bg-gray-700">
         <FontAwesomeIcon icon={faDoorOpen} />
         <span className="ml-4">Logout</span>

@@ -14,6 +14,7 @@ export default {
       index:ADMIN_PATH,
       signin:ADMIN_PATH + '/signin',
       reviews:ADMIN_PATH + '/reviews',
+      testApproval:ADMIN_PATH + '/test-approval',
     },
     instructor: {
       index: INSTRUCTOR_PATH,
