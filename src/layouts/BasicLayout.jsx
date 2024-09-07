@@ -1,14 +1,18 @@
 "use client";
 
 import { Footer, Navbar } from "@/components";
+import { usePathname } from "next/navigation"; 
+import { routes } from "@/config";
 import React from "react";
 
 const BasicLayout = ({ children }) => {
+  const currentPath = usePathname(); 
+
   return (
     <>
-      <Navbar />
+      {!currentPath.startsWith(routes.dashboard.admin.index) && <FooNavbarter />}
       {children}
-      <Footer />
+      {!currentPath.startsWith(routes.dashboard.admin.index) && <Footer />}
     </>
   );
 };
