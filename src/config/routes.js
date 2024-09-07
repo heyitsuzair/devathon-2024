@@ -1,6 +1,7 @@
 const AUTH_PATH = "/auth/";
 const TEST_BASE_PATH = "/test";
 const INSTRUCTOR_PATH = "/dashboard/instructor";
+const INSTRUCTOR_TEST_PATH = "/dashboard/instructor/test";
 const ADMIN_PATH = "/dashboard/admin";
 
 export default {
@@ -22,7 +23,9 @@ export default {
     },
     instructor: {
       index: INSTRUCTOR_PATH,
-      addtest: INSTRUCTOR_PATH + "/addtest",
+      test: {
+        create: INSTRUCTOR_TEST_PATH + "/create",
+      },
     },
   },
 };

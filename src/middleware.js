@@ -10,14 +10,14 @@ export async function middleware(req) {
     return NextResponse.next();
   }
 
-  // // If user is not logged in or logged in role is not student and trying to student dashboard, throw it to home
-  // if (
-  //   path.includes("dashboard/student/index") &&
-  //   (!(await isLoggedIn()) ||
-  //     (await isLoggedIn(true)).role !== constants.ROLES.STUDENT)
-  // ) {
-  //   return NextResponse.redirect(new URL(routes.home, req.url));
-  // }
+  // If user is not logged in or logged in role is not dashboard and trying to dashboard dashboard, throw it to home
+  if (
+    path.includes("dashboard/instructor") &&
+    (!(await isLoggedIn()) ||
+      (await isLoggedIn(true)).role !== constants.ROLES.INSTRUCTOR)
+  ) {
+    return NextResponse.redirect(new URL(routes.home, req.url));
+  }
 
   return NextResponse.next();
 }
