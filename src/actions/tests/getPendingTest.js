@@ -8,8 +8,7 @@ async function getPendingTest() {
     const { data, error } = await supabase
     .from('tests')
     .select('*');
-
-    
+    return data;
   } catch ({ message }) {
     return {
       success: false,
@@ -17,4 +16,4 @@ async function getPendingTest() {
     };
   }
 }
-export default isInstructorLoggedIn(createTest);
+export default getPendingTest;

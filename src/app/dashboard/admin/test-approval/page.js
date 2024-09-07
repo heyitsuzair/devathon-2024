@@ -1,22 +1,16 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataTablePlain } from '@/components';
 import { faEye, faEdit, faTrash, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from 'next/link';
+import { getPendingTest, updateTestStatus } from '@/actions';
 
-const dummyData = [
-  { id: 1, name: 'Item 1', category: 'MDCAT', approved: false },
-  { id: 2, name: 'Item 2', category: 'ECAT', approved: false },
-  { id: 3, name: 'Item 3', category: 'NTS', approved: true },
-  // Add more rows as needed
-];
-
-const columns = [
+const columns = (handleApprove, handleDisapprove) => [
   {
     name: 'Test Name',
-    selector: row => row.name,
+    selector: row => row.test_name,
     sortable: true,
   },
   {
@@ -28,9 +22,9 @@ const columns = [
     name: 'Status',
     cell: row => (
       <span
-        className={`px-2 py-1 rounded text-white ${row.approved ? 'bg-green-500' : 'bg-red-500'}`}
+        className={`px-2 py-1 rounded text-white ${row.status === 'confirmed' ? 'bg-green-500' : 'bg-red-500'}`}
       >
-        {row.approved ? 'Approved' : 'Not Approved'}
+        {row.status === 'confirmed' ? 'Approved' : 'Pending'}
       </span>
     ),
   },
@@ -78,16 +72,16 @@ const columns = [
     cell: row => (
       <div className="flex space-x-2">
         <button
-          className={`text-green-500 hover:text-green-700 ${row.approved ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          className={`text-green-500 hover:text-green-700 ${row.status === 'confirmed' ? 'cursor-not-allowed' : 'cursor-pointer'}`}
           onClick={() => handleApprove(row)}
-          disabled={row.approved}
+          disabled={row.status === 'confirmed'}
         >
           <FontAwesomeIcon icon={faCheck} title="Approve" />
         </button>
         <button
-          className={`text-red-500 hover:text-red-700 ${!row.approved ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          className={`text-red-500 hover:text-red-700 ${row.status !== 'confirmed' ? 'cursor-not-allowed' : 'cursor-pointer'}`}
           onClick={() => handleDisapprove(row)}
-          disabled={!row.approved}
+          disabled={row.status !== 'confirmed'}
         >
           <FontAwesomeIcon icon={faTimes} title="Disapprove" />
         </button>
@@ -112,43 +106,61 @@ const columns = [
 
 const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [data, setData] = useState(dummyData);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const testData = await getPendingTest();
+      setData(testData);
+      console.log('Fetched data:', testData);
+    };
+
+    fetchData();
+  }, []);
 
   // Filter data based on search query
   const filteredData = data.filter(item =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.category.toLowerCase().includes(searchQuery.toLowerCase())
+    (item.test_name?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+    (item.category?.toLowerCase() || '').includes(searchQuery.toLowerCase())
   );
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  const handleApprove = (row) => {
-    // Update the approval status in the data
-    setData(prevData =>
-      prevData.map(item =>
-        item.id === row.id ? { ...item, approved: true } : item
-      )
-    );
-    console.log('Approve clicked for row:', row);
+  const handleApprove = async (row) => {
+    const response = await updateTestStatus(row.id, 'confirmed');
+    if (response.success) {
+      setData(prevData =>
+        prevData.map(item =>
+          item.id === row.id ? { ...item, status: 'confirmed' } : item
+        )
+      );
+      console.log('Approve clicked for row:', row);
+    } else {
+      console.error(response.message);
+    }
   };
 
-  const handleDisapprove = (row) => {
-    // Update the disapproval status in the data
-    setData(prevData =>
-      prevData.map(item =>
-        item.id === row.id ? { ...item, approved: false } : item
-      )
-    );
-    console.log('Disapprove clicked for row:', row);
+  const handleDisapprove = async (row) => {
+    const response = await updateTestStatus(row.id, 'pending');
+    if (response.success) {
+      setData(prevData =>
+        prevData.map(item =>
+          item.id === row.id ? { ...item, status: 'pending' } : item
+        )
+      );
+      console.log('Disapprove clicked for row:', row);
+    } else {
+      console.error(response.message);
+    }
   };
 
   return (
     <div className="p-6">
       <DataTablePlain
         rows={filteredData}
-        columns={columns}
+        columns={columns(handleApprove, handleDisapprove)}
         title="Approve Tests"
         isLoading={false}
         onSearch={handleSearch}
