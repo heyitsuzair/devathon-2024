@@ -12,11 +12,9 @@ async function createTest(data, instructor) {
       data.tests.image
     );
 
-    data.image = payload;
-    data.instructor_id = instructor.id;
     const { data: dataTest, error: errorTest } = await supabase
       .from(constants.TABLES.TESTS)
-      .insert(data.tests)
+      .insert({ ...data.tests, instructor_id: instructor.id, image: payload })
       .select("*")
       .single();
 
@@ -32,6 +30,8 @@ async function createTest(data, instructor) {
     for (let i = 0; i < data.questions.length; i++) {
       const question = data.questions[i];
       question.test_id = dataTest.id;
+
+      delete question.id;
       const { error: errorQuestion } = await supabase
         .from(constants.TABLES.QUESTIONS)
         .insert(question);
@@ -51,6 +51,7 @@ async function createTest(data, instructor) {
       data: constants.SUCCESS.TEST_SAVED,
     };
   } catch ({ message }) {
+    console.log({ message });
     return {
       success: false,
       data: constants.ERROR[500],

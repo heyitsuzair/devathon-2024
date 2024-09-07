@@ -13,9 +13,7 @@ export default Yup.object().shape({
       Yup.object().shape({
         id: Yup.string().required(),
         question: Yup.string().required("Question is required"),
-        options: Yup.array()
-          .of(Yup.string().required("Option is required"))
-          .min(2, "At least 2 options are required"),
+        options: Yup.array(),
         correct_option: Yup.string().required("Correct option is required"),
       })
     )
