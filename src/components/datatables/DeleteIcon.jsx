@@ -2,7 +2,7 @@ import React from "react";
 import { ButtonIcon } from "../buttons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const DeleteIcon = ({ onClickDelete = null }) => {
+const DeleteIcon = ({ onClickDelete = (null) }) => {
   return (
     <ButtonIcon
       icon={faTrash}

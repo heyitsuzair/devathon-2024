@@ -29,8 +29,7 @@ export default function RootLayout({ children }) {
               toastOptions={toastSettings}
               reverseOrder={false}
             />
-
-            {children}
+              {children}
           </BasicLayout>
         </AuthState>
       </body>

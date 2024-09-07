@@ -8,7 +8,6 @@ const BasicLayout = ({ children }) => {
     <>
       <Navbar />
       {children}
-      <Footer />
     </>
   );
 };
