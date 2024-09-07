@@ -7,15 +7,6 @@ import { FancyBox, FancyImage, Flex, Grid, TextMd } from "@/components";
 import Tests from "./Tests";
 
 export default function Home() {
-  useEffect(() => {
-    const insertData = async () => {
-      console.log("Creating....");
-      createForm();
-    };
-
-    insertData();
-  }, []); // Empty dependency array to run only once on mount
-
   return (
     <div className="m-10">
       <Hero />

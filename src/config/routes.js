@@ -1,6 +1,7 @@
 const AUTH_PATH = "/auth/";
 const TEST_BASE_PATH = "/test";
 const INSTRUCTOR_PATH = "/dashboard/instructor";
+const ADMIN_PATH = "/dashboard/admin";
 
 export default {
   // auth
@@ -14,9 +15,14 @@ export default {
     read: (id) => TEST_BASE_PATH + `/${id}`,
   },
   dashboard: {
+    admin: {
+      index: ADMIN_PATH,
+      signin: ADMIN_PATH + "/signin",
+      reviews: ADMIN_PATH + "/reviews",
+    },
     instructor: {
       index: INSTRUCTOR_PATH,
-      addtext: INSTRUCTOR_PATH + "/test/add",
+      addtest: INSTRUCTOR_PATH + "/addtest",
     },
   },
 };

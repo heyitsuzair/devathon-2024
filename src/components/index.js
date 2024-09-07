@@ -22,3 +22,4 @@ export * from "./progress";
 export * from "./fancy-ui";
 export * from "./StarRating";
 export * from "./cards";
+export * from "./sidebar";
