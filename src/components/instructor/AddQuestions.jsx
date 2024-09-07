@@ -1,19 +1,18 @@
+"use client"
 import React, { useState } from 'react';
 import Input from './Input';
 import Choice from './Choice';
 
 const AddQuestions = () => {
-  const [question, setQuestion] = useState(''); // Store the current question text
-  const [questions, setQuestions] = useState([]); // Store all questions
-  const [choices, setChoices] = useState([]); // Store the choices for the current question
-  const [correctChoiceIndex, setCorrectChoiceIndex] = useState(null); // Store the index of the correct choice
+  const [question, setQuestion] = useState('');
+  const [questions, setQuestions] = useState([]);
+  const [choices, setChoices] = useState([]);
+  const [correctChoiceIndex, setCorrectChoiceIndex] = useState(null);
 
-  // Handle the input for the question text
   const handleInputChange = (e) => {
     setQuestion(e.target.value);
   };
 
-  // Add the current question with its choices and correct answer to the questions array
   const addQuestion = () => {
     if (question.trim() && choices.length > 0 && correctChoiceIndex !== null) {
       setQuestions([...questions, { questionText: question, choices, correctChoice: correctChoiceIndex }]);
@@ -24,29 +23,36 @@ const AddQuestions = () => {
   };
 
   return (
-    <div>
-      <Input
+    <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg mx-auto mt-6">
+      <h2 className="text-xl font-bold text-yellow-600 mb-4">Add Question</h2>
+
+      <Input 
         placeholder="Enter your question"
         value={question}
         onChange={handleInputChange}
         label="Question"
+        className="mb-4"
       />
 
-      
-      <Choice choices={choices} setChoices={setChoices} correctChoiceIndex={correctChoiceIndex} setCorrectChoiceIndex={setCorrectChoiceIndex} />
+      <Choice 
+        choices={choices} 
+        setChoices={setChoices} 
+        correctChoiceIndex={correctChoiceIndex} 
+        setCorrectChoiceIndex={setCorrectChoiceIndex} 
+      />
 
-      
-      <button onClick={addQuestion}>Add Question</button>
+      <button onClick={addQuestion} className="bg-yellow-500 text-white py-2 px-4 rounded-md hover:bg-yellow-600 w-full mt-4">
+        Add Question
+      </button>
 
-      
-      <ul>
+      <ul className="mt-6">
         {questions.map((q, index) => (
-          <li key={index}>
-            <strong>{q.questionText}</strong>
-            <ul>
+          <li key={index} className="mb-4">
+            <strong className="text-yellow-600">{q.questionText}</strong>
+            <ul className="list-disc ml-6">
               {q.choices.map((choice, idx) => (
-                <li key={idx}>
-                  {choice} {q.correctChoice === idx ? '(Correct Answer)' : ''}
+                <li key={idx} className={q.correctChoice === idx ? 'text-green-600' : ''}>
+                  {choice} {q.correctChoice === idx && '(Correct Answer)'}
                 </li>
               ))}
             </ul>

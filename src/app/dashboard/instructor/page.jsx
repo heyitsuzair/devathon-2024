@@ -8,7 +8,6 @@ const page = () => {
   const router = useRouter();
   return (
     <div>
-        <InstructorDetails/>
         <ButtonIconned classes='rounded-lg' text={"Add test"} onClick={router.push(routes.dashboard.instructor.addtest)}/>
     </div>
   )
