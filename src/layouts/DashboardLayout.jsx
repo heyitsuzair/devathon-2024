@@ -1,12 +1,17 @@
-import Sidebar from '@/app/dashboard/instructor/sidebar/Sidebar'
+import { Grid } from '@/components'
+import Sidebar from '@/components/sidebar/Sidebar'
 import React from 'react'
 
-const DashboardLayout = ({children}) => {
+const DashboardLayout = ({ children }) => {
   return (
-    <div>
-        <Sidebar/>
+    <Grid>
+      <div className='colspan-3'>
+        <Sidebar />
+      </div>
+      <div className='colspan-9'>
         {children}
-    </div>
+      </div>
+    </Grid>
   )
 }
 

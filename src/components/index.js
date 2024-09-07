@@ -20,3 +20,4 @@ export * from "./moment";
 export * from "./avatar";
 export * from "./progress";
 export * from "./fancy-ui";
+export * from "./sidebar";
