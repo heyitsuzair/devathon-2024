@@ -1,5 +1,5 @@
 const AUTH_PATH = "/auth/";
-const COURSE_BASE_PATH = "/course";
+const TEST_BASE_PATH = "/test";
 const INSTRUCTOR_PATH = "/dashboard/instructor";
 
 export default {
@@ -8,11 +8,11 @@ export default {
   signIn: AUTH_PATH + "login",
   // app
   home: "/",
-  // courses: {
-  //   index: COURSES_BASE_PATH,
-  //   indexWithCategory: (id) => `${COURSES_BASE_PATH}?category_id=${id}`,
-  //   read: (id) => COURSES_BASE_PATH + `/${id}`,
-  // },
+  test: {
+    index: TEST_BASE_PATH,
+    indexWithCategory: (id) => `${TEST_BASE_PATH}?category_id=${id}`,
+    read: (id) => TEST_BASE_PATH + `/${id}`,
+  },
   dashboard: {
     instructor: {
       index: INSTRUCTOR_PATH,

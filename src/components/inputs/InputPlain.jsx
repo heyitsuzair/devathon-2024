@@ -29,6 +29,7 @@ const InputPlain = ({
   labelColor = "text-heading",
   padding = "p-4",
   accept = "",
+  onKeyDown = null,
 }) => {
   // States
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -71,6 +72,7 @@ const InputPlain = ({
           required={isRequired}
           disabled={isDisabled}
           maxLength={maxLength}
+          onKeyDown={onKeyDown}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
