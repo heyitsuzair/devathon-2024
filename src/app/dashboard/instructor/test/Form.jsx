@@ -4,7 +4,7 @@ import React from "react";
 import { generateGridForm, generateUUID } from "@/utils";
 import { getIn, useFormik } from "formik";
 import { InstructorSignupSchema, TestsSchema } from "@/validationSchema";
-import { createInstructor } from "@/actions";
+import { createInstructor, createTest } from "@/actions";
 import { useToast } from "@/hooks";
 import {
   ButtonIconned,
@@ -40,13 +40,28 @@ const TestForm = ({
   const { showErrorMessage, showSuccessMessage } = useToast();
 
   const onSubmit = async (values, { resetForm }) => {
-    const { data, success } = await createInstructor(values);
+    // const questionsMapped = questions.map((question) => {
+    //   return {
+    //     options: question.options,
+    //     correct_option: question.correct_option,
+    //     question: question.question,
+    //   };
+    // });
+    const obj = {
+      tests: {
+        test_name: values.test_name,
+        category: values.category,
+        image: values.image,
+        price: values.price,
+      },
+      questions: values.questions,
+    };
+    const { data, success } = await createTest(obj);
 
     if (!success) return showErrorMessage(data);
     else {
       showSuccessMessage(data);
       resetForm();
-      setIsSignupModalOpen(false);
     }
   };
 

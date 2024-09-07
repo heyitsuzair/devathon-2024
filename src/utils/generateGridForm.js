@@ -76,7 +76,7 @@ export default (
                 error={touched?.[id] && errors?.[id]}
                 errorText={errors?.[id]}
                 isRequired={field?.isRequired}
-                accept={field.accept}
+                accept={field.accept || "image/*"}
               />
             </div>
           );
