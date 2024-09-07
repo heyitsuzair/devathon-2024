@@ -17,7 +17,6 @@ import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
   const navItems = [
-    { label: "Dashboard", href: routes.dashboard.admin.index, icon: faHome },
     {
       label: "Test Approval",
       href: routes.dashboard.admin.testApproval,

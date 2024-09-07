@@ -28,6 +28,7 @@ export default {
     STUDENTS: "students",
     TESTS: "tests",
     QUESTIONS: "questions",
+    ADMIN: "admin",
   },
   COOKIES: {
     AUTH: "test-auth",
@@ -35,5 +36,6 @@ export default {
   ROLES: {
     STUDENT: "student",
     INSTRUCTOR: "instructor",
+    ADMIN: "admin",
   },
 };

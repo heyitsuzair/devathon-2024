@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { DataTablePlain } from '@/components';
-import { faEye, faEdit, faTrash, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from 'next/link';
 import { getPendingTest, updateTestStatus } from '@/actions';
 
 const columns = (handleApprove, handleDisapprove) => [
@@ -29,45 +28,6 @@ const columns = (handleApprove, handleDisapprove) => [
     ),
   },
   {
-    name: 'View',
-    cell: row => (
-      <FontAwesomeIcon
-        icon={faEye}
-        className="text-blue-500 cursor-pointer"
-        title="View"
-      />
-    ),
-    ignoreRowClick: true,
-    allowOverflow: true,
-    button: true,
-  },
-  {
-    name: 'Edit',
-    cell: row => (
-      <FontAwesomeIcon
-        icon={faEdit}
-        className="text-green-500 cursor-pointer"
-        title="Edit"
-      />
-    ),
-    ignoreRowClick: true,
-    allowOverflow: true,
-    button: true,
-  },
-  {
-    name: 'Delete',
-    cell: row => (
-      <FontAwesomeIcon
-        icon={faTrash}
-        className="text-red-500 cursor-pointer"
-        title="Delete"
-      />
-    ),
-    ignoreRowClick: true,
-    allowOverflow: true,
-    button: true,
-  },
-  {
     name: 'Approval',
     cell: row => (
       <div className="flex space-x-2">
@@ -86,17 +46,6 @@ const columns = (handleApprove, handleDisapprove) => [
           <FontAwesomeIcon icon={faTimes} title="Disapprove" />
         </button>
       </div>
-    ),
-    ignoreRowClick: true,
-    allowOverflow: true,
-    button: true,
-  },
-  {
-    name: 'View Ratings',
-    cell: row => (
-      <Link href={`/ratings/${row.id}`} className="text-blue-500 hover:underline">
-        View Ratings
-      </Link>
     ),
     ignoreRowClick: true,
     allowOverflow: true,

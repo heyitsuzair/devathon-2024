@@ -1,25 +1,37 @@
 "use client";
 
-import React from "react";
-import { ButtonPlain, InputPlain } from '@/components';
-import { images } from '@/config';
-import Image from 'next/image';
+import React, { useContext } from "react";
+import { ButtonPlain, InputPlain } from "@/components";
+import { images, routes } from "@/config";
+import Image from "next/image";
 import { useFormik } from "formik";
-import { AdminLoginSchema } from "@/validationSchema"; 
+import { AdminLoginSchema } from "@/validationSchema";
 import { useToast } from "@/hooks";
+import { loginAdmin } from "@/actions";
+import { AuthContext } from "@/context";
+import { useRouter } from "next/navigation";
 
 const AdminLogin = () => {
   const { showErrorMessage, showSuccessMessage } = useToast();
+  const { setUser } = useContext(AuthContext);
 
   const initialValues = {
-    email: "",
+    email_address: "",
     password: "",
   };
 
-  const onSubmit = (values, { resetForm }) => {
-    console.log("Form values:", values); 
-    showSuccessMessage("Login successful!");
-    resetForm();
+  const router = useRouter();
+
+  const onSubmit = async (values, { resetForm }) => {
+    const { data, success, payload } = await loginAdmin(values);
+
+    if (!success) return showErrorMessage(data);
+    else {
+      showSuccessMessage(data);
+      setUser(payload);
+      router.push(routes.dashboard.admin.testApproval);
+      resetForm();
+    }
   };
 
   const {
@@ -41,7 +53,13 @@ const AdminLogin = () => {
       <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
         <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
           <div className="flex justify-center mb-3">
-            <Image src={images.logo} className="rounded-full" width={100} height={100} alt="Admin Logo" />
+            <Image
+              src={images.logo}
+              className="rounded-full"
+              width={100}
+              height={100}
+              alt="Admin Logo"
+            />
           </div>
           <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
             <div className="px-5 py-7">
@@ -49,7 +67,7 @@ const AdminLogin = () => {
                 <InputPlain
                   type="email"
                   label="Email:"
-                  name="email"
+                  name="email_address"
                   placeholder="Enter your email"
                   value={values.email}
                   onChange={handleChange}
@@ -66,7 +84,9 @@ const AdminLogin = () => {
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={touched.password && errors.password ? errors.password : null}
+                  error={
+                    touched.password && errors.password ? errors.password : null
+                  }
                 />
               </div>
               <div className="px-3 py-2 mt-1 mb-5 text-sm w-full">

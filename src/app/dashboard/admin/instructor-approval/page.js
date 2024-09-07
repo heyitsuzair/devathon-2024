@@ -1,40 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DataTablePlain } from '@/components';
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getPendingInstructor, updateInstructorStatus } from '@/actions';  // Import your server actions here
 
-const dummyInstructors = [
-  { id: 1, name: 'John Doe', email: 'john@example.com', phone: '123-456-7890', approved: true },
-  { id: 2, name: 'Jane Smith', email: 'jane@example.com', phone: '098-765-4321', approved: false },
-  { id: 3, name: 'Emily Johnson', email: 'emily@example.com', phone: '555-555-5555', approved: true },
-  // Add more rows as needed
-];
-
-const columns = [
+const columns = (handleApprove, handleDisapprove) => [
   {
     name: 'Instructor Name',
-    selector: row => row.name,
+    selector: row => `${row.first_name} ${row.last_name}`, // Concatenate first and last name
     sortable: true,
   },
   {
     name: 'Email',
-    selector: row => row.email,
+    selector: row => row.email_address, // Updated to use email_address
     sortable: true,
   },
   {
     name: 'Phone Number',
-    selector: row => row.phone,
+    selector: row => row.phone_number, // Updated to use phone_number
     sortable: true,
   },
   {
     name: 'Status',
     cell: row => (
       <span
-        className={`px-2 py-1 rounded text-white ${row.approved ? 'bg-green-500' : 'bg-red-500'}`}
+        className={`px-2 py-1 rounded text-white ${row.status === 'confirmed' ? 'bg-green-500' : 'bg-red-500'}`}
       >
-        {row.approved ? 'Approved' : 'Not Approved'}
+        {row.status === 'confirmed' ? 'Approved' : 'Pending'}
       </span>
     ),
   },
@@ -42,10 +36,18 @@ const columns = [
     name: 'Actions',
     cell: row => (
       <div className="flex space-x-2">
-        <button className="text-green-500 hover:text-green-700">
+        <button
+          className={`text-green-500 hover:text-green-700 ${row.status === 'confirmed' ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          onClick={() => handleApprove(row)}
+          disabled={row.status === 'confirmed'}
+        >
           <FontAwesomeIcon icon={faCheck} title="Approve" />
         </button>
-        <button className="text-red-500 hover:text-red-700">
+        <button
+          className={`text-red-500 hover:text-red-700 ${row.status !== 'confirmed' ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          onClick={() => handleDisapprove(row)}
+          disabled={row.status !== 'confirmed'}
+        >
           <FontAwesomeIcon icon={faTimes} title="Disapprove" />
         </button>
       </div>
@@ -55,23 +57,63 @@ const columns = [
 
 const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [data, setData] = useState([]);
+
+  // Fetch pending instructors on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+      const instructorData = await getPendingInstructor();
+      setData(instructorData);
+      console.log('Fetched instructors:', instructorData);  // Log data for debugging
+    };
+
+    fetchData();
+  }, []);
 
   // Filter data based on search query
-  const filteredData = dummyInstructors.filter(instructor =>
-    instructor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    instructor.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    instructor.phone.includes(searchQuery)
+  const filteredData = data.filter(instructor =>
+    (`${instructor.first_name} ${instructor.last_name}`.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    instructor.email_address.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    instructor.phone_number.includes(searchQuery))
   );
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
   };
 
+  const handleApprove = async (row) => {
+    const response = await updateInstructorStatus(row.id, 'confirmed');
+    if (response.success) {
+      setData(prevData =>
+        prevData.map(item =>
+          item.id === row.id ? { ...item, status: 'confirmed' } : item
+        )
+      );
+      console.log('Approved instructor:', row);
+    } else {
+      console.error('Error approving instructor:', response.message);
+    }
+  };
+
+  const handleDisapprove = async (row) => {
+    const response = await updateInstructorStatus(row.id, 'pending');
+    if (response.success) {
+      setData(prevData =>
+        prevData.map(item =>
+          item.id === row.id ? { ...item, status: 'pending' } : item
+        )
+      );
+      console.log('Disapproved instructor:', row);
+    } else {
+      console.error('Error disapproving instructor:', response.message);
+    }
+  };
+
   return (
     <div className="p-6">
       <DataTablePlain
         rows={filteredData}
-        columns={columns}
+        columns={columns(handleApprove, handleDisapprove)}
         title="Approve Instructors"
         isLoading={false}
         onSearch={handleSearch}

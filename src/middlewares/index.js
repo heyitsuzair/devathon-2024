@@ -5,3 +5,4 @@ export { default as isStudentEmailUnique } from "./isStudentEmailUnique";
 export { default as doesStudentExists } from "./doesStudentExists";
 export { default as isInstructorLoggedIn } from "./isInstructorLoggedIn";
 export { default as isStudentLoggedIn } from "./isStudentLoggedIn";
+export { default as doesAdminExists } from "./doesAdminExists";
