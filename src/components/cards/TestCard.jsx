@@ -9,9 +9,9 @@ import { ButtonOutlined } from "../buttons";
 import Link from "next/link";
 import StarRating from "../StarRating/StarRating";
 
-const TestCard = () => {
+const TestCard = ({ test }) => {
   return (
-    <Link href={routes.test.read(1)}>
+    <Link href={routes.test.read(test.id)}>
       <div className="pb-2 shadow-md rounded-lg">
         <div className="relative">
           <Image
@@ -19,20 +19,20 @@ const TestCard = () => {
             width={200}
             height={200}
             className="rounded-t-lg h-64 object-cover w-full"
-            src={"https://placehold.co/210x216"}
+            src={test.image}
             unoptimized
           />
           <TextLg
-            text={"Rs 100"}
+            text={`Rs ${test.price}`}
             classes="bg-theme-500 rounded-full px-4 py-1 font-black absolute top-4 left-4"
             color="text-white"
           />
         </div>
         <div className="m-3 xl:mx-8 xl:my-4">
-          <StarRating rating={4} />
+          <StarRating rating={5} />
 
           <Text2Xl
-            text={"TEST ONE"}
+            text={test.test_name}
             classes={
               "font-semibold my-4 mt-2 overflow-hidden text-ellipsis whitespace-nowrap"
             }
@@ -54,13 +54,17 @@ const TestCard = () => {
               <Flex classes="bg-theme-500 w-8 h-8 rounded">
                 <FontAwesomeIcon icon={faBook} color="white" />
               </Flex>
-              <TextSm text={`10 Questions`} />
+              <TextSm text={`${test.questions.length} Questions`} />
             </Flex>
           </Flex>
 
           <Flex justify="justify-between" classes="mt-6">
-            <ButtonOutlined text={"View TEST"} width="w-44" height="h-10" />
-            <TextSm text={"NTS"} color="text-theme-500" classes="font-bold" />
+            <ButtonOutlined text={"View Test"} width="w-44" height="h-10" />
+            <TextSm
+              text={test.category.toUpperCase()}
+              color="text-theme-500"
+              classes="font-bold"
+            />
           </Flex>
         </div>
       </div>

@@ -1,12 +1,12 @@
 import Image from "next/image";
 import React from "react";
 
-const Hero = () => {
+const Hero = ({ test }) => {
   return (
     <div>
       <Image
         unoptimized
-        src={"https://placehold.co/210x216"}
+        src={test.image}
         className="h-[80vh] w-full object-cover"
         width={20}
         height={20}

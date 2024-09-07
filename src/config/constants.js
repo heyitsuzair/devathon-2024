@@ -7,6 +7,7 @@ export default {
     FILE_NOT_SAVED: "Error Saving File",
     401: "Unauthorized",
     ACCOUNT_UNDER_APPROVAL: "Account Under Approval",
+    REQUEST_CANCELED: "Request Canceled",
   },
   SUCCESS: {
     LOGIN: "Welcome!",
@@ -18,6 +19,7 @@ export default {
     FILE_SAVED: "File Saved",
     LINK_COPIED: "Link Copied!",
     TEST_SAVED: "Test Saved!",
+    COURSE_BOUGHT: "You Have Bought The Course!",
   },
   TABLES: {
     USERS: "users",
@@ -28,7 +30,7 @@ export default {
     QUESTIONS: "questions",
   },
   COOKIES: {
-    AUTH: "<company>-auth",
+    AUTH: "test-auth",
   },
   ROLES: {
     STUDENT: "student",

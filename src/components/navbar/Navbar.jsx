@@ -72,9 +72,7 @@ const Navbar = () => {
 
   const handleClickDashboard = () => {
     const role = getLoggedInRole();
-    if (role === constants.ROLES.STUDENT) {
-      router.push(routes.dashboard.student.index);
-    }
+
     if (role === constants.ROLES.INSTRUCTOR) {
       router.push(routes.dashboard.instructor.test.create);
     }

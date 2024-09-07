@@ -17,7 +17,7 @@ config.autoAddCss = false;
 const inter = Urbanist({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Nextjs App",
+  title: "TEST APP",
 };
 
 export default function RootLayout({ children }) {

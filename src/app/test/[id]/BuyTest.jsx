@@ -1,5 +1,6 @@
 "use client";
 
+import { buyTest } from "@/actions";
 import { ButtonIconned, ButtonPlain, Flex, TextMd, TextSm } from "@/components";
 import { constants } from "@/config";
 import { AuthContext } from "@/context";
@@ -14,31 +15,30 @@ import {
   faUserAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useParams } from "next/navigation";
 import React, { useContext, useState } from "react";
 
 const BuyTest = () => {
   const { showSuccessMessage, showErrorMessage } = useToast();
-  const { user, getLoggedInRole } = useContext(AuthContext);
+  const { user, getLoggedInRole, isLoggedIn } = useContext(AuthContext);
 
-  const [isCheckingAuth, setIsCheckingAuth] = useState(false);
-  const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
-  const [isSampleModalOpen, setIsSampleModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState();
+
+  const { id } = useParams();
 
   const handleShare = () => {
     copyToClipboard(window.location.href);
     showSuccessMessage(constants.SUCCESS.LINK_COPIED);
   };
-  const handleBuy = () => {
-    setIsCheckingAuth(true);
-    if (!user) {
-      document.getElementById(constants.IDS.LOGIN_BUTTON).click();
-      setIsCheckingAuth(false);
-    } else if (getLoggedInRole() !== constants.ROLES.STUDENT) {
-      showErrorMessage(constants.ERROR.INSTRUCTORS_CANT_BUY_COURSE);
-      setIsCheckingAuth(false);
-    } else {
-      setIsBuyModalOpen(true);
-      setIsCheckingAuth(false);
+  const handleBuy = async () => {
+    if (getLoggedInRole() === constants.ROLES.STUDENT) {
+      setIsLoading(true);
+      const { success, data } = await buyTest(id);
+      setIsLoading(false);
+
+      if (success) {
+        window.open(data, "_self");
+      }
     }
   };
 
@@ -53,8 +53,9 @@ const BuyTest = () => {
             borderRadius="rounded-lg"
             classes="mb-3"
             colorText="text-white font-bold"
-            isLoading={isCheckingAuth}
+            isLoading={isLoading}
             // isDisabled={isCourseBuyAble(course)}
+            isDisabled={!isLoggedIn()}
           />
 
           <ButtonIconned

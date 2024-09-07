@@ -9,7 +9,7 @@ const FullPageLoader = ({ isVisible }) => {
         isVisible ? "opacity-100 visible" : "opacity-0 invisible"
       } transition-all duration-100`}
     >
-      <Logo width={250} height={250} classes="animate-pulse" />
+      <Logo width={250} height={250} classes="animate-pulse rounded-full" />
     </Flex>
   );
 };

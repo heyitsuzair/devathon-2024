@@ -21,8 +21,7 @@ const TestCategories = ({ activeTab, setActiveTab }) => {
     </Grid>
   );
 };
-const Hero = () => {
-  const [activeTab, setActiveTab] = useState(0);
+const Hero = ({ activeTab, setActiveTab }) => {
   return <TestCategories activeTab={activeTab} setActiveTab={setActiveTab} />;
 };
 

@@ -1,6 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import { constants } from "@/config";
+import { useToast } from "@/hooks";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 const questionsData = [
   {
@@ -28,6 +31,10 @@ const TestPage = () => {
   const [answers, setAnswers] = useState({});
   const [score, setScore] = useState(null);
 
+  const searchParams = useSearchParams();
+
+  const { showSuccessMessage, showErrorMessage } = useToast();
+
   const handleAnswer = (answer) => {
     setAnswers({ ...answers, [currentQuestionIndex]: answer });
   };
@@ -48,6 +55,13 @@ const TestPage = () => {
   const handleJump = (index) => {
     setCurrentQuestionIndex(index);
   };
+
+  useEffect(() => {
+    if (searchParams.get("success") === "false")
+      showErrorMessage(constants.ERROR.REQUEST_CANCELED);
+    if (searchParams.get("success") === "true")
+      showSuccessMessage(constants.SUCCESS.COURSE_BOUGHT);
+  }, []);
 
   if (score !== null) {
     return (
