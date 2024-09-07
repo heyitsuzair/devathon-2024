@@ -15,7 +15,6 @@ import { routes } from "@/config";
 
 const Sidebar = () => {
   const navItems = [
-    { label: "Dashboard", href: routes.dashboard.admin.index, icon: faHome },
     { label: "Test Approval", href: routes.dashboard.admin.testApproval, icon: faCheck },
     { label: "Instructor Approval", href: routes.dashboard.admin.instructorApproval, icon: faChalkboardTeacher },
     { label: "Settings", href:routes.dashboard.admin.index, icon: faGear },

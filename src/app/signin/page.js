@@ -1,25 +1,34 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { ButtonPlain, InputPlain } from '@/components';
 import { images } from '@/config';
 import Image from 'next/image';
 import { useFormik } from "formik";
 import { AdminLoginSchema } from "@/validationSchema"; 
 import { useToast } from "@/hooks";
+import { loginAdmin } from "@/actions";
+import { AuthContext } from "@/context";
+
 
 const AdminLogin = () => {
   const { showErrorMessage, showSuccessMessage } = useToast();
+  const { setUser } = useContext(AuthContext);
 
   const initialValues = {
-    email: "",
+    email_adress: "",
     password: "",
   };
 
-  const onSubmit = (values, { resetForm }) => {
-    console.log("Form values:", values); 
-    showSuccessMessage("Login successful!");
-    resetForm();
+  const onSubmit = async (values, { resetForm }) => {
+    const { data, success, payload } = await loginAdmin(values);
+
+    if (!success) return showErrorMessage(data);
+    else {
+      showSuccessMessage(data);
+      setUser(payload);
+      resetForm();
+    }
   };
 
   const {
@@ -49,7 +58,7 @@ const AdminLogin = () => {
                 <InputPlain
                   type="email"
                   label="Email:"
-                  name="email"
+                  name="email_adress"
                   placeholder="Enter your email"
                   value={values.email}
                   onChange={handleChange}
