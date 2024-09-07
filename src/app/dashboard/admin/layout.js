@@ -1,6 +1,4 @@
-import { Urbanist } from "next/font/google";
-import "./globals.css";
-import { BasicLayout } from "@/layouts";
+import { DashboardLayout } from "@/layouts";
 import { Toaster } from "react-hot-toast";
 import { toastSettings } from "@/config";
 import "swiper/css";
@@ -12,27 +10,22 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import "@fancyapps/ui/dist/carousel/carousel.css";
 import "@fancyapps/ui/dist/carousel/carousel.thumbs.css";
 
-const inter = Urbanist({ subsets: ["latin"] });
-
 export const metadata = {
   title: "Nextjs App",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <AuthState>
-          <BasicLayout>
-            <Toaster
-              position="top-center"
-              toastOptions={toastSettings}
-              reverseOrder={false}
-            />
-              {children}
-          </BasicLayout>
-        </AuthState>
-      </body>
-    </html>
+
+    <AuthState>
+      <DashboardLayout>
+        <Toaster
+          position="top-center"
+          toastOptions={toastSettings}
+          reverseOrder={false}
+        />
+        {children}
+      </DashboardLayout>
+    </AuthState>
   );
 }

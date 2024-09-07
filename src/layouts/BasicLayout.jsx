@@ -10,7 +10,7 @@ const BasicLayout = ({ children }) => {
 
   return (
     <>
-      {!currentPath.startsWith(routes.dashboard.admin.index) && <FooNavbarter />}
+      {!currentPath.startsWith(routes.dashboard.admin.index) && <Navbar />}
       {children}
       {!currentPath.startsWith(routes.dashboard.admin.index) && <Footer />}
     </>

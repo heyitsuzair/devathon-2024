@@ -1,6 +1,7 @@
 const AUTH_PATH = "/auth/";
 const COURSE_BASE_PATH = "/course";
 const ADMIN_PATH = "/dashboard/admin";
+const INSTRUCTOR_PATH = 'dashboard/instructor'
 
 export default {
   // auth
@@ -12,10 +13,11 @@ export default {
     admin:{
       index:ADMIN_PATH,
       signin:ADMIN_PATH + '/signin',
+      reviews:ADMIN_PATH + '/reviews',
     },
     instructor: {
       index: INSTRUCTOR_PATH,
-      addtext: INSTRUCTOR_PATH + "/test/add",
+      addtest: INSTRUCTOR_PATH + "/addtest",
     },
   }
 };
