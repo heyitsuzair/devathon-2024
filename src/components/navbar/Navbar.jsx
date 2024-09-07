@@ -78,6 +78,8 @@ const Navbar = () => {
     }
   };
 
+  console.log(isLoggedIn());
+
   return (
     <>
       <Modal isOpen={isLoginModalOpen} onClose={setIsLoginModalOpen}>

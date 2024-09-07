@@ -17,9 +17,11 @@ export default {
   },
   dashboard: {
     admin: {
-      index: ADMIN_PATH,
-      signin: ADMIN_PATH + "/signin",
-      reviews: ADMIN_PATH + "/reviews",
+      index:ADMIN_PATH,
+      signin:ADMIN_PATH + '/signin',
+      reviews:ADMIN_PATH + '/reviews',
+      testApproval:ADMIN_PATH + '/test-approval',
+      instructorApproval:ADMIN_PATH + '/instructor-approval',
     },
     instructor: {
       index: INSTRUCTOR_PATH,
