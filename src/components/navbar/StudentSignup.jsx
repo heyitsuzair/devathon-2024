@@ -15,10 +15,7 @@ const initialValues = {
   email_address: "",
   password: "",
   phone_number: "",
-  father_name: "",
-  job_status: "",
   uni_college_name: "",
-  hospital_name: "",
 };
 
 const StudentSignup = ({
@@ -61,10 +58,7 @@ const StudentSignup = ({
       placeholder: "Last Name",
       isRequired: true,
     },
-    {
-      placeholder: "Father Name",
-      isRequired: true,
-    },
+
     {
       placeholder: "Email Address",
       isRequired: true,
@@ -80,21 +74,10 @@ const StudentSignup = ({
     },
 
     {
-      placeholder: "Job Status",
-      options: jobStatuses,
-      isRequired: true,
-    },
-    {
       placeholder: "University/College Name",
       name: "uni_college_name",
       isRequired: true,
       invisible: values.job_status !== "student",
-    },
-    {
-      placeholder: "Hospital Name",
-      name: "hospital_name",
-      isRequired: true,
-      invisible: values.job_status !== "employee",
     },
   ];
 

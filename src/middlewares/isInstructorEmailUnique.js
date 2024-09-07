@@ -4,7 +4,7 @@ import { supabase } from "@/lib";
 export default function (handler) {
   return async (data) => {
     const { error, data: dataStudent } = await supabase
-      .from(constants.TABLES.STUDENTS)
+      .from(constants.TABLES.INSTRUCTORS)
       .select("*")
       .eq("email_address", data.email_address)
       .single();

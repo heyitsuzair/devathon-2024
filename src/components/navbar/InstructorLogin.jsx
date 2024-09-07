@@ -95,7 +95,7 @@ const InstructorLogin = ({
           <ButtonPlain
             text="Login"
             isLoading={isSubmitting}
-            onClick={() => setIsMFAModalOpen(true)}
+            onClick={handleSubmit}
             isRounded
           />
 
